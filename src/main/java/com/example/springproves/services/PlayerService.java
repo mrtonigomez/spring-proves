@@ -1,9 +1,7 @@
 package com.example.springproves.services;
 
-import com.example.springproves.models.Player;
+import com.example.springproves.models.massiv_db.Player;
 import com.example.springproves.repositories.PlayerRepository;
-import org.apache.catalina.connector.Response;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;

@@ -1,13 +1,11 @@
 package com.example.springproves.controllers;
 
 
-import com.example.springproves.models.Player;
+import com.example.springproves.models.massiv_db.Player;
 import com.example.springproves.services.PlayerService;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
-import java.util.List;
 
 @RestController
 public class PlayerController {

@@ -1,6 +1,6 @@
 package com.example.springproves.controllers;
 
-import com.example.springproves.models.Movie;
+import com.example.springproves.models.filmfy.Movie;
 import com.example.springproves.services.ConnectApiSerrvice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;

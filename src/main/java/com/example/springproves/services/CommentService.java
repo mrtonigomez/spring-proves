@@ -1,23 +1,43 @@
 package com.example.springproves.services;
 
-import com.example.springproves.models.Comment;
-import com.example.springproves.repositories.CommentDetailsRepository;
+import com.example.springproves.dto.CommentCreateDTO;
+import com.example.springproves.models.filmfy.Comment;
+import com.example.springproves.models.filmfy.User;
+import com.example.springproves.repositories.CommentRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Set;
+import java.util.Optional;
 
 @Service
 public class CommentService {
 
-    protected final CommentDetailsRepository commentDetailsRepository;
+    protected final CommentRepository commentRepository;
 
-    public CommentService(CommentDetailsRepository commentDetailsRepository) {
-        this.commentDetailsRepository = commentDetailsRepository;
+    public CommentService(CommentRepository commentRepository) {
+        this.commentRepository = commentRepository;
     }
 
     public List<Comment> getAll() {
-        return commentDetailsRepository.findAll();
+        return commentRepository.findAll();
+    }
+
+    public List<Comment> getCommentByUsers(Optional<User> user) {
+        return commentRepository.getCommentByUsers(user);
+    }
+
+    public void insertComment(CommentCreateDTO comment, User user) {
+
+        Comment commentToSave = new Comment();
+        commentToSave.setUser(user);
+        commentToSave.setBody(comment.getBody());
+        commentToSave.setTitle(comment.getTitle());
+        commentToSave.setRating(comment.getRating());
+        commentToSave.setModerated(comment.getModerated());
+        commentToSave.setStatus(comment.getStatus());
+        commentToSave.setLikes(comment.getLikes());
+
+        commentRepository.save(commentToSave);
     }
 
 }

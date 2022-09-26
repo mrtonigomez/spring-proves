@@ -1,12 +1,14 @@
-package com.example.springproves.models;
+package com.example.springproves.models.filmfy;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
+import java.sql.Time;
+import java.sql.Timestamp;
 import java.time.Instant;
 
 @Table(name = "comments")
@@ -21,9 +23,10 @@ public class Comment {
     @Column(name = "id", columnDefinition = "INT UNSIGNED not null")
     private Long id;
 
-    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @ManyToOne
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "users_id", nullable = false)
+    @JsonProperty("user")
     private User users;
 
     @Column(name = "title", nullable = false, length = 75)
@@ -52,10 +55,10 @@ public class Comment {
     private Integer likes;
 
     @Column(name = "created_at", nullable = false)
-    private Instant createdAt;
+    private Timestamp createdAt = new Timestamp(System.currentTimeMillis());
 
     @Column(name = "updated_at", nullable = false)
-    private Instant updatedAt;
+    private Timestamp updatedAt  = new Timestamp(System.currentTimeMillis());
 
     public Long getId() {
         return id;
@@ -65,11 +68,11 @@ public class Comment {
         this.id = id;
     }
 
-    public User getUsers() {
+    public User getUser() {
         return users;
     }
 
-    public void setUsers(User users) {
+    public void setUser(User users) {
         this.users = users;
     }
 
@@ -137,19 +140,19 @@ public class Comment {
         this.likes = likes;
     }
 
-    public Instant getCreatedAt() {
+    public Timestamp getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(Instant createdAt) {
+    public void setCreatedAt(Timestamp createdAt) {
         this.createdAt = createdAt;
     }
 
-    public Instant getUpdatedAt() {
+    public Timestamp getUpdatedAt() {
         return updatedAt;
     }
 
-    public void setUpdatedAt(Instant updatedAt) {
+    public void setUpdatedAt(Timestamp updatedAt) {
         this.updatedAt = updatedAt;
     }
 

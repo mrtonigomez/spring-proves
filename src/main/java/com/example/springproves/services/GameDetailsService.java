@@ -1,6 +1,6 @@
 package com.example.springproves.services;
 
-import com.example.springproves.models.GamesDetails;
+import com.example.springproves.models.massiv_db.GamesDetails;
 import com.example.springproves.repositories.GameDetailsRepository;
 import org.springframework.stereotype.Service;
 

@@ -1,7 +1,7 @@
-package com.example.springproves.models;
+package com.example.springproves.models.filmfy;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
@@ -46,7 +46,8 @@ public class User {
     @Column(name = "profile_image", nullable = false, length = 191)
     private String profileImage;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "users")
+    @OneToMany(mappedBy = "users")
+    @JsonProperty("comments")
     private List<Comment> users;
 
     public String getProfileImage() {

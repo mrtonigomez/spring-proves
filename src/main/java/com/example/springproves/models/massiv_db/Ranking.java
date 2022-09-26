@@ -1,4 +1,4 @@
-package com.example.springproves.models;
+package com.example.springproves.models.massiv_db;
 
 import javax.persistence.*;
 

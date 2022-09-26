@@ -1,6 +1,7 @@
-package com.example.springproves.models;
+package com.example.springproves.models.filmfy;
 
 import javax.persistence.*;
+import javax.persistence.Entity;
 import java.time.Instant;
 import java.time.LocalDate;
 

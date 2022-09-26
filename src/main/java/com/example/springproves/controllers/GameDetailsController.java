@@ -1,6 +1,6 @@
 package com.example.springproves.controllers;
 
-import com.example.springproves.models.GamesDetails;
+import com.example.springproves.models.massiv_db.GamesDetails;
 import com.example.springproves.services.GameDetailsService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;

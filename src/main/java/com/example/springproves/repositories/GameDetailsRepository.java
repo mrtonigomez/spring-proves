@@ -1,6 +1,6 @@
 package com.example.springproves.repositories;
 
-import com.example.springproves.models.GamesDetails;
+import com.example.springproves.models.massiv_db.GamesDetails;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;

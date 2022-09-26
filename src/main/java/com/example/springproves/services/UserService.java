@@ -1,12 +1,11 @@
 package com.example.springproves.services;
 
-import com.example.springproves.models.Comment;
-import com.example.springproves.models.User;
-import com.example.springproves.repositories.CommentDetailsRepository;
+import com.example.springproves.models.filmfy.User;
 import com.example.springproves.repositories.UserRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserService {
@@ -17,8 +16,12 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public List<User>getAll() {
+    public List<User> getAll() {
         return userRepository.findAll();
+    }
+
+    public Optional<User> getById(Long id) {
+        return userRepository.findById(id);
     }
 
 }

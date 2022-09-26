@@ -1,10 +1,9 @@
 package com.example.springproves.services;
 
-import com.example.springproves.models.Team;
+import com.example.springproves.models.massiv_db.Team;
 import com.example.springproves.repositories.TeamRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
