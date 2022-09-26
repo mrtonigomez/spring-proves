@@ -2,6 +2,8 @@ package com.example.springproves.models.filmfy;
 
 import javax.persistence.*;
 import java.time.Instant;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "categories")
@@ -19,6 +21,9 @@ public class Category {
 
     @Column(name = "updated_at", nullable = false)
     private Instant updatedAt;
+
+    @ManyToMany(mappedBy = "categories")
+    Set<Movie> movies = new HashSet<>();
 
     public Long getId() {
         return id;

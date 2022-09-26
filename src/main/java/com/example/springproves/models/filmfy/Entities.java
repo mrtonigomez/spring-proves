@@ -7,6 +7,8 @@ import javax.persistence.*;
 import javax.persistence.Entity;
 import java.time.Instant;
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "entities")
@@ -38,6 +40,9 @@ public class Entities {
 
     @Column(name = "updated_at", nullable = false)
     private Instant updatedAt;
+
+    @ManyToMany(mappedBy = "entities")
+    Set<Movie> movies = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -103,4 +108,11 @@ public class Entities {
         this.updatedAt = updatedAt;
     }
 
+    public Set<Movie> getMovies() {
+        return movies;
+    }
+
+    public void setMovies(Set<Movie> movies) {
+        this.movies = movies;
+    }
 }

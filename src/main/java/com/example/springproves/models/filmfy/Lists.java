@@ -6,10 +6,12 @@ import org.hibernate.annotations.OnDeleteAction;
 import javax.persistence.*;
 import javax.persistence.Entity;
 import java.time.Instant;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "lists")
-public class List {
+public class Lists {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", columnDefinition = "INT UNSIGNED not null")
@@ -37,6 +39,9 @@ public class List {
 
     @Column(name = "updated_at", nullable = false)
     private Instant updatedAt;
+
+    @ManyToMany(mappedBy = "lists", fetch = FetchType.LAZY)
+    private Set<Movie> employees = new HashSet<>();
 
     public Long getId() {
         return id;

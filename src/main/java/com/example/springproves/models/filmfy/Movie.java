@@ -4,6 +4,8 @@ import javax.persistence.*;
 import javax.persistence.Entity;
 import java.time.Instant;
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "movies")
@@ -40,6 +42,30 @@ public class Movie {
 
     @Column(name = "updated_at", nullable = false)
     private Instant updatedAt;
+
+    @ManyToMany(cascade = { CascadeType.ALL }, fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "lists_movies",
+            joinColumns = { @JoinColumn(name = "movies_id") },
+            inverseJoinColumns = { @JoinColumn(name = "lists_id") }
+    )
+    Set<Lists> lists = new HashSet<>();
+
+    @ManyToMany(cascade = { CascadeType.ALL }, fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "categories_movies",
+            joinColumns = { @JoinColumn(name = "movies_id") },
+            inverseJoinColumns = { @JoinColumn(name = "categories_id") }
+    )
+    Set<Category> categories = new HashSet<>();
+
+    @ManyToMany(cascade = { CascadeType.ALL }, fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "entities_movies",
+            joinColumns = { @JoinColumn(name = "movies_id") },
+            inverseJoinColumns = { @JoinColumn(name = "entities_id") }
+    )
+    Set<Entities> entities = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -119,5 +145,29 @@ public class Movie {
 
     public void setUpdatedAt(Instant updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public Set<Lists> getLists() {
+        return lists;
+    }
+
+    public void setLists(Set<Lists> lists) {
+        this.lists = lists;
+    }
+
+    public Set<Category> getCategories() {
+        return categories;
+    }
+
+    public void setCategories(Set<Category> categories) {
+        this.categories = categories;
+    }
+
+    public Set<Entities> getEntities() {
+        return entities;
+    }
+
+    public void setEntities(Set<Entities> entities) {
+        this.entities = entities;
     }
 }
