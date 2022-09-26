@@ -1,61 +1,47 @@
 package com.example.springproves.models;
 
 import javax.persistence.*;
-import java.sql.Date;
 
 @Entity
-@Table(name = "players")
+@Table(name = "players_csv")
 public class Player {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(unique = true, nullable = false)
-    private Long Id;
-    private String name;
-    private int edad;
-    private String born_date;
+    @Column(name = "player_id", nullable = false)
+    private Long player_id;
+    private int team_id;
+    private int season;
+    private String player_name;
 
-
-   /*public Player(Long id, String name, int edad, Date born_date) {
-        this.Id = id;
-        this.name = name;
-        this.edad = edad;
-        this.born_date = born_date;
+    public Long getPlayer_id() {
+        return player_id;
     }
 
-    public Player() {
-
-    }*/
-
-    public Long getId() {
-        return Id;
+    public void setPlayer_id(Long player_id) {
+        this.player_id = player_id;
     }
 
-    public void setId(Long id) {
-        Id = id;
+    public int getTeam_id() {
+        return team_id;
     }
 
-    public String getName() {
-        return name;
+    public void setTeam_id(int team_id) {
+        this.team_id = team_id;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public int getSeason() {
+        return season;
     }
 
-    public int getEdad() {
-        return edad;
+    public void setSeason(int season) {
+        this.season = season;
     }
 
-    public void setEdad(int edad) {
-        this.edad = edad;
+    public String getPlayer_name() {
+        return player_name;
     }
 
-    public String getBorn_date() {
-        return born_date;
-    }
-
-    public void setBorn_date(String born_date) {
-        this.born_date = born_date;
+    public void setPlayer_name(String player_name) {
+        this.player_name = player_name;
     }
 }

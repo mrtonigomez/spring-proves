@@ -2,18 +2,19 @@ package com.example.springproves.services;
 
 import com.example.springproves.models.Player;
 import com.example.springproves.repositories.PlayerRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.apache.catalina.connector.Response;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 
 @Service
 public class PlayerService {
-    @Autowired
-    PlayerRepository playerRepository;
+    protected final PlayerRepository playerRepository;
+
+    public PlayerService(PlayerRepository playerRepository) {
+        this.playerRepository = playerRepository;
+    }
 
     public ArrayList<Player> getPlayers() {
         return (ArrayList<Player>) playerRepository.findAll();
@@ -21,5 +22,9 @@ public class PlayerService {
 
     public Player createPlayer(Player player) {
         return playerRepository.save(player);
+    }
+
+    public void deletePlayer(Long id) {
+        playerRepository.deleteById(id);
     }
 }

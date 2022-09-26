@@ -3,27 +3,34 @@ package com.example.springproves.controllers;
 
 import com.example.springproves.models.Player;
 import com.example.springproves.services.PlayerService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 public class PlayerController {
-    @Autowired
-    PlayerService playerService;
+    protected final PlayerService playerService;
 
-    @GetMapping("/endpoint")
+    public PlayerController(PlayerService playerService) {
+        this.playerService = playerService;
+    }
+
+    @GetMapping("/player")
     public ArrayList<Player> firstEndpoint() {
-
         return playerService.getPlayers();
     }
 
-    @PostMapping("/create-player")
+    @PostMapping("/player")
     public Player createPlayer(@RequestBody Player player) {
         return playerService.createPlayer(player);
     }
+
+    /*@DeleteMapping("/player/{id}")
+    public ResponseEntity deletePlayer(@PathVariable Long id) {
+        playerService.deletePlayer(id);
+        return ResponseEntity.ok("Okey lord");
+    }*/
+
 }
