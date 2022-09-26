@@ -3,7 +3,9 @@ package com.example.springproves.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class CommentDTO {
+import java.io.Serializable;
+
+public class CommentDTO implements Serializable {
 
     Long id;
     @JsonProperty("user")

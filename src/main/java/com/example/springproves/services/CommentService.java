@@ -22,7 +22,11 @@ public class CommentService {
         return commentRepository.findAll();
     }
 
-    public List<Comment> getCommentByUsers(Optional<User> user) {
+    public Comment getCommentById(Long id) {
+        return commentRepository.findByIdCustom(id);
+    }
+
+    public List<Comment> getCommentByUsers(User user) {
         return commentRepository.getCommentByUsers(user);
     }
 
