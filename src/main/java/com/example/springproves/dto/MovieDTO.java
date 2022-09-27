@@ -1,6 +1,8 @@
 package com.example.springproves.dto;
 
+import com.example.springproves.EntitiesDTO;
 import com.example.springproves.models.filmfy.Category;
+import com.example.springproves.models.filmfy.Entities;
 
 import java.io.Serializable;
 import java.time.Instant;
@@ -15,8 +17,10 @@ public class MovieDTO implements Serializable {
     LocalDate releaseDate;
     String image;
     Integer runtime;
-    Set<ListsDTO> lists;
     Set<String> categories;
+    Set<String> actors;
+    Set<String> directors;
+    Set<String> writters;
 
     public String getTitle() {
         return title;
@@ -39,10 +43,6 @@ public class MovieDTO implements Serializable {
     }
 
 
-    public Set<ListsDTO> getLists() {
-        return lists;
-    }
-
     public void setTitle(String title) {
         this.title = title;
     }
@@ -63,10 +63,6 @@ public class MovieDTO implements Serializable {
         this.runtime = runtime;
     }
 
-    public void setLists(Set<ListsDTO> lists) {
-        this.lists = lists;
-    }
-
     public Set<String> getCategories() {
         return categories;
     }
@@ -75,32 +71,27 @@ public class MovieDTO implements Serializable {
         this.categories = categories;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        MovieDTO entity = (MovieDTO) o;
-        return Objects.equals(this.title, entity.title) &&
-                Objects.equals(this.description, entity.description) &&
-                Objects.equals(this.releaseDate, entity.releaseDate) &&
-                Objects.equals(this.image, entity.image) &&
-                Objects.equals(this.runtime, entity.runtime) &&
-                Objects.equals(this.lists, entity.lists);
+    public Set<String> getActors() {
+        return actors;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(title, description, releaseDate, image, runtime, lists);
+    public void setActors(Set<String> actors) {
+        this.actors = actors;
     }
 
-    @Override
-    public String toString() {
-        return getClass().getSimpleName() + "(" +
-                "title = " + title + ", " +
-                "description = " + description + ", " +
-                "releaseDate = " + releaseDate + ", " +
-                "image = " + image + ", " +
-                "runtime = " + runtime + ", " +
-                "lists = " + lists + ")";
+    public Set<String> getDirectos() {
+        return directors;
+    }
+
+    public void setDirectos(Set<String> directos) {
+        this.directors = directos;
+    }
+
+    public Set<String> getWritters() {
+        return writters;
+    }
+
+    public void setWritters(Set<String> writters) {
+        this.writters = writters;
     }
 }

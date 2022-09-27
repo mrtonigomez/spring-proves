@@ -22,7 +22,7 @@ public class Category {
     @Column(name = "updated_at", nullable = false)
     private Instant updatedAt;
 
-    @ManyToMany(mappedBy = "categories")
+    @ManyToMany(mappedBy = "categories", fetch = FetchType.EAGER)
     Set<Movie> movies = new HashSet<>();
 
     public Long getId() {

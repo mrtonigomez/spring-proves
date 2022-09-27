@@ -4,12 +4,14 @@ package com.example.springproves.controllers;
 import com.example.springproves.dto.CommentCreateDTO;
 import com.example.springproves.dto.CommentCustomDTO;
 import com.example.springproves.dto.CommentDTO;
+import com.example.springproves.dto.UserDTO;
 import com.example.springproves.models.filmfy.Comment;
 import com.example.springproves.models.filmfy.User;
 import com.example.springproves.services.CommentService;
 import com.example.springproves.services.MapStructMapper;
 import com.example.springproves.services.UserService;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeMap;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -42,7 +44,11 @@ public class CommentController {
 
         return ResponseEntity.ok(commentService.getAll()
                 .stream()
-                .map(mapStructMapper::commentToCommentDTO)
+                .map(comment -> {
+                    CommentDTO commentDTO = modelMapper.map(comment, CommentDTO.class);
+                    commentDTO.setUserDTO(modelMapper.map(comment.getUser(), UserDTO.class));
+                    return commentDTO;
+                })
                 .collect(Collectors.toList()));
     }
 
@@ -60,7 +66,11 @@ public class CommentController {
 
         return ResponseEntity.ok(comments
                 .stream()
-                .map(mapStructMapper::commentToCommentDTO)
+                .map(comment -> {
+                    CommentDTO commentDTO = modelMapper.map(comment, CommentDTO.class);
+                    commentDTO.setUserDTO(modelMapper.map(comment.getUser(), UserDTO.class));
+                    return commentDTO;
+                })
                 .collect(Collectors.toList()));
     }
 
@@ -80,13 +90,10 @@ public class CommentController {
 
         Comment comment = commentService.getCommentById(Long.valueOf(id));
 
-        Map<String, Object> commentMap = new HashMap<>();
-        commentMap.put("id", comment.getTitle());
-        commentMap.put("title", comment.getTitle());
-        commentMap.put("body", comment.getBody());
-        commentMap.put("user", mapStructMapper.userToUserDto(comment.getUser()));
+        CommentDTO commentDTO = modelMapper.map(comment, CommentDTO.class);
+        commentDTO.setUserDTO(modelMapper.map(comment.getUser(), UserDTO.class));
 
-        return ResponseEntity.ok(commentMap);
+        return ResponseEntity.ok(commentDTO);
     }
 
     @GetMapping("/get-comments-another-way")

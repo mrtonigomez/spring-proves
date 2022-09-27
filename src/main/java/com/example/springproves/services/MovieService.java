@@ -2,6 +2,7 @@ package com.example.springproves.services;
 
 import com.example.springproves.dto.CommentCreateDTO;
 import com.example.springproves.models.filmfy.Comment;
+import com.example.springproves.models.filmfy.Entities;
 import com.example.springproves.models.filmfy.Movie;
 import com.example.springproves.models.filmfy.User;
 import com.example.springproves.repositories.CommentRepository;
@@ -9,6 +10,8 @@ import com.example.springproves.repositories.MovieRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class MovieService {
@@ -23,28 +26,16 @@ public class MovieService {
         return movieRepository.findAll();
     }
 
-    /*public List<>*/
-
-    /*public Comment getCommentById(Long id) {
-        return commentRepository.findByIdCustom(id);
+    public Movie getById(Long id) {
+        return movieRepository.findById(id).get();
     }
 
-    public List<Comment> getCommentByUsers(User user) {
-        return commentRepository.getCommentByUsers(user);
+    public List<Movie> getAllLimit30() {
+        return movieRepository.findTop30ByOrderByIdDesc();
     }
 
-    public void insertComment(CommentCreateDTO comment, User user) {
-
-        Comment commentToSave = new Comment();
-        commentToSave.setUser(user);
-        commentToSave.setBody(comment.getBody());
-        commentToSave.setTitle(comment.getTitle());
-        commentToSave.setRating(comment.getRating());
-        commentToSave.setModerated(comment.getModerated());
-        commentToSave.setStatus(comment.getStatus());
-        commentToSave.setLikes(comment.getLikes());
-
-        commentRepository.save(commentToSave);
-    }*/
+    public Set<String> getNameEntities(Set<Entities> entities){
+        return entities.stream().map(Entities::getName).collect(Collectors.toSet());
+    }
 
 }

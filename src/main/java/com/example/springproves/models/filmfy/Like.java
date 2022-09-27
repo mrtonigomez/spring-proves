@@ -15,7 +15,7 @@ public class Like {
     @Column(name = "id", columnDefinition = "INT UNSIGNED not null")
     private Long id;
 
-    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "users_id", nullable = false)
     private User users;

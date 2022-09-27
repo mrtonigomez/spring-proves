@@ -33,6 +33,7 @@ public class CommentService {
     public void insertComment(CommentCreateDTO comment, User user) {
 
         Comment commentToSave = new Comment();
+
         commentToSave.setUser(user);
         commentToSave.setBody(comment.getBody());
         commentToSave.setTitle(comment.getTitle());

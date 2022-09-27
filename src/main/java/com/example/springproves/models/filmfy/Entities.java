@@ -24,7 +24,7 @@ public class Entities {
     @Column(name = "formdate")
     private LocalDate formdate;
 
-    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "roles_id", nullable = false)
     private Role roles;

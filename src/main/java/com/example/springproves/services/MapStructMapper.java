@@ -1,13 +1,12 @@
 package com.example.springproves.services;
 
+import com.example.springproves.EntitiesDTO;
 import com.example.springproves.dto.CommentDTO;
 import com.example.springproves.dto.ListsDTO;
 import com.example.springproves.dto.MovieDTO;
 import com.example.springproves.dto.UserDTO;
-import com.example.springproves.models.filmfy.Comment;
-import com.example.springproves.models.filmfy.Lists;
-import com.example.springproves.models.filmfy.Movie;
-import com.example.springproves.models.filmfy.User;
+import com.example.springproves.models.filmfy.*;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 
 import java.util.HashSet;
@@ -19,10 +18,14 @@ import java.util.stream.Collectors;
 public class MapStructMapper
 {
 
+    private ModelMapper modelMapper;
     protected MovieService movieService;
+    protected EntitiesService entitiesService;
 
-    public MapStructMapper(MovieService movieService) {
+    public MapStructMapper(MovieService movieService, EntitiesService entitiesService, ModelMapper modelMapper) {
         this.movieService = movieService;
+        this.entitiesService = entitiesService;
+        this.modelMapper = modelMapper;
     }
 
     public CommentDTO commentToCommentDTO(Comment comment) {
@@ -58,8 +61,28 @@ public class MapStructMapper
         movieDTO.setRuntime(movie.getRuntime());
         movieDTO.setReleaseDate(movie.getReleaseDate());
 
-        Set<String> categories = movie.getCategories().stream().map(category -> category.getName()).collect(Collectors.toSet());
+        Set<String> categories = movie.getCategories()
+                .stream()
+                .map(Category::getName)
+                .collect(Collectors.toSet());
+
+        Set<Entities> actors = movie.getEntities()
+                .stream()
+                .filter(entities -> entities.getRoles().getId().equals(1L))
+                .collect(Collectors.toSet());
+        Set<Entities> directors = movie.getEntities()
+                .stream()
+                .filter(entities -> entities.getRoles().getId().equals(2L))
+                .collect(Collectors.toSet());
+        Set<Entities> writters = movie.getEntities()
+                .stream()
+                .filter(entities -> entities.getRoles().getId().equals(3L))
+                .collect(Collectors.toSet());
+
         movieDTO.setCategories(categories);
+        movieDTO.setActors(movieService.getNameEntities(actors));
+        movieDTO.setDirectos(movieService.getNameEntities(directors));
+        movieDTO.setWritters(movieService.getNameEntities(writters));
 
         return movieDTO;
     }
@@ -77,8 +100,6 @@ public class MapStructMapper
 
             returnList.add(listsDTO);
         });
-
-
 
         return returnList;
     }

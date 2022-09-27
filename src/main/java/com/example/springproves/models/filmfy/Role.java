@@ -3,6 +3,7 @@ package com.example.springproves.models.filmfy;
 import javax.persistence.*;
 import javax.persistence.Entity;
 import java.time.Instant;
+import java.util.List;
 
 @Entity
 @Table(name = "roles")
@@ -20,6 +21,9 @@ public class Role {
 
     @Column(name = "updated_at", nullable = false)
     private Instant updatedAt;
+
+    @OneToMany(mappedBy = "roles")
+    private List<Entities> entitiesList;
 
     public Long getId() {
         return id;
@@ -53,4 +57,11 @@ public class Role {
         this.updatedAt = updatedAt;
     }
 
+    public List<Entities> getEntitiesList() {
+        return entitiesList;
+    }
+
+    public void setEntitiesList(List<Entities> entitiesList) {
+        this.entitiesList = entitiesList;
+    }
 }
