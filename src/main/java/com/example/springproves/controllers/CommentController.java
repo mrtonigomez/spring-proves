@@ -12,6 +12,7 @@ import com.example.springproves.services.MapStructMapper;
 import com.example.springproves.services.UserService;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeMap;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -42,14 +43,7 @@ public class CommentController {
 
         List<Comment> bodies = commentService.getCommentByUsers(user.get());
 
-        return ResponseEntity.ok(commentService.getAll()
-                .stream()
-                .map(comment -> {
-                    CommentDTO commentDTO = modelMapper.map(comment, CommentDTO.class);
-                    commentDTO.setUserDTO(modelMapper.map(comment.getUser(), UserDTO.class));
-                    return commentDTO;
-                })
-                .collect(Collectors.toList()));
+        return ResponseEntity.ok(commentService.getAllReturnDTO());
     }
 
     @GetMapping("/comments/{user}")
