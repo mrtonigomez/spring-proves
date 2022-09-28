@@ -7,6 +7,9 @@ import com.example.springproves.models.filmfy.Movie;
 import com.example.springproves.models.filmfy.User;
 import com.example.springproves.repositories.CommentRepository;
 import com.example.springproves.repositories.MovieRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -36,6 +39,10 @@ public class MovieService {
 
     public Set<String> getNameEntities(Set<Entities> entities){
         return entities.stream().map(Entities::getName).collect(Collectors.toSet());
+    }
+
+    public Page<Movie> getAllPaginated(int page) {
+        return movieRepository.findAll(PageRequest.of(page, 25));
     }
 
 }

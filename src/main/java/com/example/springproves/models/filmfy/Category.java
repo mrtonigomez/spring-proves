@@ -1,5 +1,7 @@
 package com.example.springproves.models.filmfy;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import java.time.Instant;
 import java.util.HashSet;
@@ -22,7 +24,8 @@ public class Category {
     @Column(name = "updated_at", nullable = false)
     private Instant updatedAt;
 
-    @ManyToMany(mappedBy = "categories", fetch = FetchType.EAGER)
+    @JsonBackReference
+    @ManyToMany(mappedBy = "categories", fetch = FetchType.LAZY)
     Set<Movie> movies = new HashSet<>();
 
     public Long getId() {
@@ -57,4 +60,11 @@ public class Category {
         this.updatedAt = updatedAt;
     }
 
+    public Set<Movie> getMovies() {
+        return movies;
+    }
+
+    public void setMovies(Set<Movie> movies) {
+        this.movies = movies;
+    }
 }

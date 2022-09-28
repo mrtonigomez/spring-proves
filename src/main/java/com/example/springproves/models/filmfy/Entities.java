@@ -1,5 +1,7 @@
 package com.example.springproves.models.filmfy;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -41,6 +43,7 @@ public class Entities {
     @Column(name = "updated_at", nullable = false)
     private Instant updatedAt;
 
+    @JsonBackReference
     @ManyToMany(mappedBy = "entities")
     Set<Movie> movies = new HashSet<>();
 

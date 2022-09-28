@@ -1,5 +1,8 @@
 package com.example.springproves.models.filmfy;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -10,6 +13,9 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id")
 @Table(name = "lists")
 public class Lists {
     @Id
@@ -41,7 +47,7 @@ public class Lists {
     private Instant updatedAt;
 
     @ManyToMany(mappedBy = "lists", fetch = FetchType.LAZY)
-    private Set<Movie> employees = new HashSet<>();
+    private Set<Movie> movies = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -107,4 +113,11 @@ public class Lists {
         this.updatedAt = updatedAt;
     }
 
+    public Set<Movie> getMovies() {
+        return movies;
+    }
+
+    public void setMovies(Set<Movie> movies) {
+        this.movies = movies;
+    }
 }

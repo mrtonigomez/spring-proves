@@ -66,23 +66,26 @@ public class MapStructMapper
                 .map(Category::getName)
                 .collect(Collectors.toSet());
 
-        Set<Entities> actors = movie.getEntities()
+        Set<String> actors = movie.getEntities()
                 .stream()
                 .filter(entities -> entities.getRoles().getId().equals(1L))
+                .map(Entities::getName)
                 .collect(Collectors.toSet());
-        Set<Entities> directors = movie.getEntities()
+        Set<String> directors = movie.getEntities()
                 .stream()
                 .filter(entities -> entities.getRoles().getId().equals(2L))
+                .map(Entities::getName)
                 .collect(Collectors.toSet());
-        Set<Entities> writters = movie.getEntities()
+        Set<String> writters = movie.getEntities()
                 .stream()
                 .filter(entities -> entities.getRoles().getId().equals(3L))
+                .map(Entities::getName)
                 .collect(Collectors.toSet());
 
         movieDTO.setCategories(categories);
-        movieDTO.setActors(movieService.getNameEntities(actors));
-        movieDTO.setDirectos(movieService.getNameEntities(directors));
-        movieDTO.setWritters(movieService.getNameEntities(writters));
+        movieDTO.setActors(actors);
+        movieDTO.setDirectos(directors);
+        movieDTO.setWritters(writters);
 
         return movieDTO;
     }

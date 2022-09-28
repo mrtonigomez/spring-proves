@@ -1,5 +1,6 @@
 package com.example.springproves.models.filmfy;
 
+import com.fasterxml.jackson.annotation.*;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
@@ -13,6 +14,9 @@ import java.util.Set;
 @Entity
 @Getter
 @Setter
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id")
 @Table(name = "movies")
 public class Movie {
     @Id
