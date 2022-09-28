@@ -19,8 +19,6 @@ public class CommentService {
     protected final CommentRepository commentRepository;
     private ModelMapper modelMapper;
 
-
-
     public CommentService(CommentRepository commentRepository, ModelMapper modelMapper) {
         this.commentRepository = commentRepository;
         this.modelMapper = modelMapper;
