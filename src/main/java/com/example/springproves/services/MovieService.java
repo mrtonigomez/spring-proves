@@ -1,6 +1,7 @@
 package com.example.springproves.services;
 
 import com.example.springproves.dto.CommentCreateDTO;
+import com.example.springproves.dto.Request.MovieRequestDTO;
 import com.example.springproves.models.filmfy.Comment;
 import com.example.springproves.models.filmfy.Entities;
 import com.example.springproves.models.filmfy.Movie;
@@ -43,6 +44,26 @@ public class MovieService {
 
     public Page<Movie> getAllPaginated(int page) {
         return movieRepository.findAll(PageRequest.of(page, 25));
+    }
+
+    public void insertMovie(MovieRequestDTO movieRequestDTO) {
+
+        Movie movie = new Movie();
+
+        /*movieRequestDTO.toString()*/
+
+        movie.setTitle(movieRequestDTO.getTitle());
+        movie.setDescription(movieRequestDTO.getDescription());
+        movie.setReleaseDate(movieRequestDTO.getReleaseDate());
+        movie.setImage(movieRequestDTO.getImage());
+        movie.setRuntime(movieRequestDTO.getRuntime());
+
+        movieRepository.save(movie);
+
+    }
+
+    public List<Movie> testingQueries(Long id) {
+        return movieRepository.getMoviesEntities(id);
     }
 
 }

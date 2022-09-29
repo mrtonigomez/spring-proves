@@ -7,7 +7,6 @@ import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.RestTemplate;
 
 import java.util.*;
 
@@ -20,28 +19,8 @@ public class ConnectApiController {
     @GetMapping("/connect-api")
     public List<Map<String, Object>> connectApi() {
 
-        String URL_API = "http://filmfy-api.ddns.net/api/only-all-movies";
+        return connectApiSerrvice.getMoviesConnectApi();
 
-        RestTemplate restTemplate = new RestTemplate();
-
-        ResponseEntity<List<Movie>> responseEntity = restTemplate.
-                exchange(URL_API, HttpMethod.GET, null, new ParameterizedTypeReference<>() {
-                });
-
-        List<Movie> movies = responseEntity.getBody();
-
-        List<Map<String, Object>> list = new ArrayList<>();
-
-        for (int i = 0; i < movies.size(); i++) {
-
-            Map<String, Object> map = new HashMap<>();
-            map.put("id", movies.get(i).getId());
-            map.put("title", movies.get(i).getTitle());
-            map.put("description", movies.get(i).getDescription());
-
-            list.add(map);
-        }
-        return list;
     }
 
     @GetMapping("/post-movie-to-list")

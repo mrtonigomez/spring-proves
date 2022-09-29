@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
+
 import javax.persistence.*;
 import java.time.Instant;
 import java.time.LocalDate;
@@ -43,24 +44,17 @@ public class Movie {
     @Column(name = "status", nullable = false)
     private Boolean status = false;
 
-    @Column(name = "trailer", nullable = false, length = 191)
+    @Column(name = "trailer", nullable = true, length = 191)
     private String trailer;
 
-    @Column(name = "created_at", nullable = false)
+    @Column(name = "created_at", nullable = true)
     private Instant createdAt;
 
-    @Column(name = "updated_at", nullable = false)
+    @Column(name = "updated_at", nullable = true)
     private Instant updatedAt;
 
-    @ManyToMany(cascade = { CascadeType.ALL }, fetch = FetchType.LAZY)
-    @JoinTable(
-            name = "lists_movies",
-            joinColumns = { @JoinColumn(name = "movies_id") },
-            inverseJoinColumns = { @JoinColumn(name = "lists_id") }
-    )
-    Set<Lists> lists = new HashSet<>();
 
-    @ManyToMany(cascade = { CascadeType.ALL }, fetch = FetchType.LAZY)
+    @ManyToMany(cascade = { CascadeType.ALL }, fetch = FetchType.EAGER)
     @JoinTable(
             name = "categories_movies",
             joinColumns = { @JoinColumn(name = "movies_id") },
@@ -68,7 +62,12 @@ public class Movie {
     )
     Set<Category> categories = new HashSet<>();
 
-    @ManyToMany(cascade = { CascadeType.ALL }, fetch = FetchType.LAZY)
+
+    @ManyToMany(mappedBy = "movies", fetch = FetchType.EAGER)
+    @JsonIgnore
+    Set<Lists> lists = new HashSet<>();
+
+    @ManyToMany(cascade = { CascadeType.ALL }, fetch = FetchType.EAGER)
     @JoinTable(
             name = "entities_movies",
             joinColumns = { @JoinColumn(name = "movies_id") },

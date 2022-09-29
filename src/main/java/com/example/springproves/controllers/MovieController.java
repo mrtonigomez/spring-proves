@@ -1,17 +1,21 @@
 package com.example.springproves.controllers;
 
+import com.example.springproves.dto.ListsDTO;
 import com.example.springproves.dto.MovieDTO;
+import com.example.springproves.dto.Request.MovieRequestDTO;
+import com.example.springproves.models.filmfy.Lists;
 import com.example.springproves.models.filmfy.Movie;
 import com.example.springproves.services.MapStructMapper;
 import com.example.springproves.services.MovieService;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import javax.validation.Valid;
 
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @RestController
@@ -50,6 +54,15 @@ public class MovieController {
         return mapStructMapper.movieToMovieDto(movie);
     }
 
+    @GetMapping("/movie-include-list/{id}")
+    public Set<ListsDTO> movieIncludeList(@PathVariable String id) {
+
+        Movie movie = movieService.getById((long) Integer.parseInt(id));
+        Set<Lists> listsSet = movie.getLists();
+
+        return mapStructMapper.listToListDTO(listsSet);
+    }
+
     @GetMapping("/movies-paginate")
     public List<MovieDTO> getMoviesPaginated(@RequestParam String page) {
 
@@ -58,6 +71,24 @@ public class MovieController {
                 .stream()
                 .map(movie -> mapStructMapper.movieToMovieDto(movie))
                 .collect(Collectors.toList());
+    }
+
+    @PostMapping("/movies")
+    public ResponseEntity insertMovies(@Valid @RequestBody MovieRequestDTO movieRequestDTO) {
+
+        movieService.insertMovie(movieRequestDTO);
+        return ResponseEntity.status(HttpStatus.CREATED).body("Insert guay");
+
+    }
+
+    @GetMapping("/movie-test")
+    public List<Movie> movieIncludeList() {
+
+        Movie movie = movieService.getById(1L);
+
+        List<Movie> movies = movieService.testingQueries(1L);
+
+        return movies;
     }
 
 

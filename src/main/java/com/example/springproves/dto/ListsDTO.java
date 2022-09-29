@@ -1,12 +1,14 @@
 package com.example.springproves.dto;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Objects;
 
 public class ListsDTO implements Serializable {
     Long id;
     String title;
     Boolean isPrivate;
+    List<String> movieDTOList;
 
     public Long getId() {
         return id;
@@ -30,6 +32,14 @@ public class ListsDTO implements Serializable {
 
     public void setPrivate(Boolean aPrivate) {
         isPrivate = aPrivate;
+    }
+
+    public List<String> getMovieDTOList() {
+        return movieDTOList;
+    }
+
+    public void setMovieDTOList(List<String> movieDTOList) {
+        this.movieDTOList = movieDTOList;
     }
 
     @Override

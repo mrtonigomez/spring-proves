@@ -1,22 +1,19 @@
 package com.example.springproves.services;
 
 import com.example.springproves.EntitiesDTO;
-import com.example.springproves.dto.CommentDTO;
-import com.example.springproves.dto.ListsDTO;
-import com.example.springproves.dto.MovieDTO;
-import com.example.springproves.dto.UserDTO;
+import com.example.springproves.dto.*;
 import com.example.springproves.models.filmfy.*;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 @Component
-public class MapStructMapper
-{
+public class MapStructMapper {
 
     private ModelMapper modelMapper;
     protected MovieService movieService;
@@ -71,11 +68,13 @@ public class MapStructMapper
                 .filter(entities -> entities.getRoles().getId().equals(1L))
                 .map(Entities::getName)
                 .collect(Collectors.toSet());
+
         Set<String> directors = movie.getEntities()
                 .stream()
                 .filter(entities -> entities.getRoles().getId().equals(2L))
                 .map(Entities::getName)
                 .collect(Collectors.toSet());
+
         Set<String> writters = movie.getEntities()
                 .stream()
                 .filter(entities -> entities.getRoles().getId().equals(3L))
@@ -101,6 +100,14 @@ public class MapStructMapper
             listsDTO.setId(lists1.getId());
             listsDTO.setPrivate(lists1.getIsPrivate());
 
+            List<String> movieDTOList = lists1.getMovies()
+                    .stream()
+                    .map(movie -> {
+                        return modelMapper.map(movie, MovieForListDTO.class).getTitle();
+                    })
+                    .collect(Collectors.toList());
+
+            listsDTO.setMovieDTOList(movieDTOList);
             returnList.add(listsDTO);
         });
 
